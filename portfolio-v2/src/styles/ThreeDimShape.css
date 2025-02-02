@@ -1,0 +1,29 @@
+/*.point {
+    width: 10px;
+    height: 10px;
+    background-color: var(--light);
+    position: absolute;
+    border-radius: 50%;
+}*/
+#center-sec
+{
+    position: absolute;
+}
+#shape
+{
+    position: absolute;
+    border-radius: 50%;
+    background-color: var(--primary);
+    width: 150px;
+    height: 150px;
+    box-shadow: 3px 0px 5px var(--dark);
+    z-index: 1;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-family:'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
+    font-size: 50px;
+    -webkit-text-stroke: 1px;
+    -webkit-text-fill-color: var(--light);
+    -webkit-text-stroke-color: var(--darker);
+}

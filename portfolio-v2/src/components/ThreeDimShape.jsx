@@ -174,11 +174,6 @@ function handleLine(index1, index2, positions, angle)
 
     //distance
     let length = Math.sqrt((positionX2 - positionX1) ** 2 + (positionY2 - positionY1) ** 2);
-    if(Math.abs(positionX2 - positionX1) < Math.abs(positionY2 - positionY1))
-    {
-        //vertical
-        length = Math.sqrt((positionX2 - positionX1) ** 2 + (positionY2 - positionY1) ** 2);
-    }
 
     //center point of line
     const centerX = ((positionX1 + positionX2) / 2);

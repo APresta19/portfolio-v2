@@ -6,7 +6,7 @@ function Header()
     return(
         <div id="header-sec">
             <div id="header-left">
-                Andrew Presta
+                <Link to="/">Andrew Presta</Link>
             </div>
             <div id="header-right">
                 <Link to="/">About</Link>

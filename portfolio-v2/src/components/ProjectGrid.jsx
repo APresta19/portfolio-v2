@@ -55,11 +55,10 @@ function ProjectGrid()
 
 
         setAnimating(true);
-        console.log(card);
         card.style.transition = 'top 0.5s ease, left 0.5s ease, transform 1s ease';
-        card.style.left = `${50}%`;
-        card.style.top = `${37}%`;
-        card.style.transform = 'scaleY(3) scaleX(4) rotateY(180deg)';
+        card.style.left = `${45}%`;
+        card.style.top = `${25}%`;
+        card.style.transform = 'scaleY(2) scaleX(3) rotateY(180deg)';
 
         //look for card object
         let cardObj = getCardByID(id);
@@ -83,9 +82,11 @@ function ProjectGrid()
             desc.textContent = cardObj.description;
             backButton.textContent = "Back";
 
-            video.width = "300";
-            video.height = "300";
+            video.width = "500";
+            video.height = "500";
             video.src = cardObj.videoRef;
+            video.style.flexGrow = "2";
+
             backButton.addEventListener("click", (event) => placeCardBack(event, id));
 
             card.appendChild(title);
@@ -131,6 +132,9 @@ function ProjectGrid()
 
             //reset clicked
             setClickedCardId(null);
+
+            //remove clone
+            cardCopy.remove();
             
             //put card back to it's original type of position
             card.style.position = 'static';
@@ -178,7 +182,7 @@ function ProjectGrid()
                 </div>
                 <div id="project-grid">
                     {cards.map((card) =>
-                        <Card key={card.id} card={card} isclicked={clickedCardId === card.id} onClick={(event) => handleClickCard(event, card.id)}></Card>
+                        <Card key={card.id} card={card} isclicked={(clickedCardId === card.id) ? +true : +false} onClick={(event) => handleClickCard(event, card.id)}></Card>
                     )}
                 </div>
             </div>

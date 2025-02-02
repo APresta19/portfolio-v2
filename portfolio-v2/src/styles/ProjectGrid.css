@@ -4,12 +4,15 @@
     justify-content: center;
     align-items: center;
     gap: 10%;
-    padding: 140px 170px;
+    padding: 150px 0px;
+    margin-left: 50px;
 }
 #project-grid
 {
     display: flex;
     flex-wrap: wrap;
+    width: 60vw;
+    height: 50vh;
 }
 #category-list
 {
