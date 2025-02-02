@@ -1,0 +1,40 @@
+#project-sec
+{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 10%;
+    padding: 140px 170px;
+}
+#project-grid
+{
+    display: flex;
+    flex-wrap: wrap;
+}
+#category-list
+{
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+}
+.project-category {
+    position: relative;
+    display: inline-block;
+    padding-bottom: 5px;
+    width: max-content;
+}
+
+.project-category::after {
+    content: '';
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    width: 0;
+    height: 2px;
+    background-color: var(--primary); 
+    transition: width 0.3s ease;
+}
+
+.project-category:hover::after {
+    width: 100%;
+}

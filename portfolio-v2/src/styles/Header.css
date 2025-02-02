@@ -1,0 +1,27 @@
+#header-sec {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 20px;
+    background-color: var(--darker);
+    color: var(--light);
+    font-size: 1.2rem;
+}
+
+#header-left {
+    font-weight: bold;
+}
+
+#header-right {
+    display: flex;
+    gap: 20px;
+}
+
+#header-right div {
+    cursor: pointer;
+    transition: color 0.3s ease;
+}
+
+#header-right div:hover {
+    color: var(--primary);
+}
