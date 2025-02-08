@@ -11,7 +11,7 @@ function ProjectGrid()
 
     const cards = [
         {id: 1, title: "Card 1", description: "Description 1", videoRef: "https://www.youtube.com/embed/tgbNymZ7vqY"},
-        {id: 2, title: "Card 2", description: "Description 2", videoRef: ""},
+        /*{id: 2, title: "Card 2", description: "Description 2", videoRef: ""},
         {id: 3, title: "Card 3", description: "Description 3", videoRef: ""},
         {id: 4, title: "Card 4", description: "Description 4", videoRef: ""},
         {id: 5, title: "Card 5", description: "Description 5", videoRef: ""},
@@ -19,7 +19,7 @@ function ProjectGrid()
         {id: 7, title: "Card 7", description: "Description 7", videoRef: ""},
         {id: 8, title: "Card 8", description: "Description 8", videoRef: ""},
         {id: 9, title: "Card 9", description: "Description 9", videoRef: ""},
-        {id: 10, title: "Card 10", description: "Description 10", videoRef: ""},
+        {id: 10, title: "Card 10", description: "Description 10", videoRef: ""},*/
     ];
 
     function handleClickCard(event, id)
@@ -37,8 +37,8 @@ function ProjectGrid()
         //use dataset to store original pos
         card.dataset.originalLeft = cardBounds.left;
         card.dataset.originalTop = cardBounds.top;
-        card.dataset.originalWidth = cardBounds.width;
-        card.dataset.originalHeight = cardBounds.height;
+        card.dataset.originalWidth = pxToVw(cardBounds.width);
+        card.dataset.originalHeight = pxToVh(cardBounds.height);
 
         //where does the card move to
         const centerX = window.innerWidth / 2;
@@ -47,17 +47,20 @@ function ProjectGrid()
         card.style.position = 'fixed';
         card.style.left = `${cardBounds.left}px`;
         card.style.top = `${cardBounds.top}px`;
-        card.style.width = `${cardBounds.width}px`;
-        card.style.height = `${cardBounds.height}px`;
+        card.style.width = `${cardBounds.width}vw`;
+        card.style.height = `${cardBounds.height}vh`;
+        console.log("First: " + card.dataset.originalWidth);
 
-        //force a reflow
+        //force a reflow for transitions
         card.offsetHeight;
 
 
         setAnimating(true);
         card.style.transition = 'top 0.5s ease, left 0.5s ease, transform 1s ease';
         card.style.left = `${45}%`;
-        card.style.top = `${25}%`;
+        card.style.top = `${30}%`;
+        card.style.height = `${50}vh`;
+        card.style.width = `${15}vw`;
         card.style.transform = 'scaleY(2) scaleX(3) rotateY(180deg)';
 
         //look for card object
@@ -87,34 +90,62 @@ function ProjectGrid()
             video.src = cardObj.videoRef;
             video.style.flexGrow = "2";
 
+            /*title.style.marginBottom = "-25px";
+            title.style.marginTop = "0px";
+            video.style.marginTop = "-20px";
+            desc.style.marginTop = "0px";
+            backButton.marginTop = "0px";*/
+
             backButton.addEventListener("click", (event) => placeCardBack(event, id));
 
             card.appendChild(title);
             card.appendChild(video);
             card.appendChild(desc);
             card.appendChild(backButton);
+            console.log(card.style.width);
         }, 200);
     }
     function placeCardBack(event, id)
     {
         const card = event.currentTarget.closest('.card'); //get the card
+        
         const originalLeft = card.dataset.originalLeft;
         const originalTop = card.dataset.originalTop;
         const originalWidth = card.dataset.originalWidth;
         const originalHeight = card.dataset.originalHeight;
 
+        //force a reflow for transitions
+        card.offsetHeight;
+
         card.style.transition = 'top 0.5s ease, left 0.5s ease, transform 1s ease';
         card.style.left = `${originalLeft}px`;
-        card.style.top = `${parseFloat(originalTop) + 50}px`;
-        card.style.width = `${originalWidth}px`;
-        card.style.height = `${originalHeight}px`;
+        card.style.top = `${parseFloat(originalTop) + 50}px`;/*
+        console.log(originalWidth);
+        console.log(`Before setting back: ${card.style.width}, ${card.style.height}`);
+        card.style.width = `${originalWidth}vw`;
+        card.style.height = `${originalHeight}vh`;
+        console.log(`After setting back: ${card.style.width}, ${card.style.height}`);*/
+
         card.style.transform = 'scale(1) rotateY(0deg)';
+
+        console.log("Second: " + originalWidth);
 
         const cardObj = getCardByID(id); //get card
         setTimeout(() => {
             //reset previous content
             card.innerHTML = '';
-            card.classList.remove("card-clicked");
+
+            /*display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: flex-start;
+    padding: 0px 35px;*/
+            //doesn't work???
+            card.style.display = "flex";
+            card.style.flexDirection = "column";
+            card.style.alignItems = "center";
+            card.style.justifyContent = "flex-start";
+            card.style.padding = "0px 35px";
 
             //fill content back
             const title = document.createElement("div");
@@ -129,7 +160,7 @@ function ProjectGrid()
         setTimeout(() => {
             //reset overriden styles
             card.style = '';
-
+            console.log("Reset card styles");
             //reset clicked
             setClickedCardId(null);
 
@@ -139,7 +170,15 @@ function ProjectGrid()
             //put card back to it's original type of position
             card.style.position = 'static';
 
+            card.classList.remove("card-clicked");
+
         }, 1000);
+    }
+    function pxToVw(px) {
+        return (px / window.innerWidth) * 100;
+    }
+    function pxToVh(px) {
+        return (px / window.innerHeight) * 100;
     }
     function handleTransitionEnd(event)
     {
