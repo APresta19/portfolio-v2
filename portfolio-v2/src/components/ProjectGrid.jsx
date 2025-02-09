@@ -135,6 +135,15 @@ function ProjectGrid()
             //reset previous content
             card.innerHTML = '';
 
+            
+
+            //fill content back
+            const title = document.createElement("div");
+            const description = document.createElement("div");
+
+            title.textContent = cardObj.title;
+            description.textContent = cardObj.description;
+
             /*display: flex;
     flex-direction: column;
     align-items: center;
@@ -145,14 +154,7 @@ function ProjectGrid()
             card.style.flexDirection = "column";
             card.style.alignItems = "center";
             card.style.justifyContent = "flex-start";
-            card.style.padding = "0px 35px";
-
-            //fill content back
-            const title = document.createElement("div");
-            const description = document.createElement("div");
-
-            title.textContent = cardObj.title;
-            description.textContent = cardObj.description;
+            card.style.padding = "20px 35px";
 
             card.appendChild(title);
             card.appendChild(description);

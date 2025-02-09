@@ -12,6 +12,11 @@
     z-index: 1;
     animation: none;
     transition: transform 0.2s ease;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    align-items: center;
+    padding: 20px 35px;
 }
 .card:hover
 {
@@ -32,7 +37,7 @@
     flex-direction: column;
     align-items: center;
     justify-content: flex-start;
-    padding: 0px 35px;
+    padding: 20px 35px;
 }
 @keyframes card-click
 {
