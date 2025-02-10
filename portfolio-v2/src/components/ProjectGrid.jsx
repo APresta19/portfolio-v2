@@ -11,7 +11,7 @@ function ProjectGrid()
 
     const cards = [
         {id: 1, title: "Card 1", description: "Description 1", videoRef: "https://www.youtube.com/embed/tgbNymZ7vqY"},
-        /*{id: 2, title: "Card 2", description: "Description 2", videoRef: ""},
+        {id: 2, title: "Card 2", description: "Description 2", videoRef: ""},
         {id: 3, title: "Card 3", description: "Description 3", videoRef: ""},
         {id: 4, title: "Card 4", description: "Description 4", videoRef: ""},
         {id: 5, title: "Card 5", description: "Description 5", videoRef: ""},
@@ -19,7 +19,7 @@ function ProjectGrid()
         {id: 7, title: "Card 7", description: "Description 7", videoRef: ""},
         {id: 8, title: "Card 8", description: "Description 8", videoRef: ""},
         {id: 9, title: "Card 9", description: "Description 9", videoRef: ""},
-        {id: 10, title: "Card 10", description: "Description 10", videoRef: ""},*/
+        {id: 10, title: "Card 10", description: "Description 10", videoRef: ""},
     ];
 
     function handleClickCard(event, id)
@@ -37,8 +37,8 @@ function ProjectGrid()
         //use dataset to store original pos
         card.dataset.originalLeft = cardBounds.left;
         card.dataset.originalTop = cardBounds.top;
-        card.dataset.originalWidth = pxToVw(cardBounds.width);
-        card.dataset.originalHeight = pxToVh(cardBounds.height);
+        card.dataset.originalWidth = cardBounds.width;
+        card.dataset.originalHeight = cardBounds.height;
 
         //where does the card move to
         const centerX = window.innerWidth / 2;
@@ -47,8 +47,8 @@ function ProjectGrid()
         card.style.position = 'fixed';
         card.style.left = `${cardBounds.left}px`;
         card.style.top = `${cardBounds.top}px`;
-        card.style.width = `${cardBounds.width}vw`;
-        card.style.height = `${cardBounds.height}vh`;
+        card.style.width = `${cardBounds.width}px`;
+        card.style.height = `${cardBounds.height}px`;
         console.log("First: " + card.dataset.originalWidth);
 
         //force a reflow for transitions
@@ -59,8 +59,8 @@ function ProjectGrid()
         card.style.transition = 'top 0.5s ease, left 0.5s ease, transform 1s ease';
         card.style.left = `${45}%`;
         card.style.top = `${30}%`;
-        card.style.height = `${50}vh`;
-        card.style.width = `${15}vw`;
+        card.style.height = `${420}px`;
+        card.style.width = `${200}px`;
         card.style.transform = 'scaleY(2) scaleX(3) rotateY(180deg)';
 
         //look for card object
@@ -113,13 +113,15 @@ function ProjectGrid()
         const originalTop = card.dataset.originalTop;
         const originalWidth = card.dataset.originalWidth;
         const originalHeight = card.dataset.originalHeight;
-
+        
         //force a reflow for transitions
         card.offsetHeight;
 
         card.style.transition = 'top 0.5s ease, left 0.5s ease, transform 1s ease';
         card.style.left = `${originalLeft}px`;
-        card.style.top = `${parseFloat(originalTop) + 50}px`;/*
+        card.style.top = `${parseFloat(originalTop) + 50}px`;
+        card.style.zIndex = 2;
+        /*
         console.log(originalWidth);
         console.log(`Before setting back: ${card.style.width}, ${card.style.height}`);
         card.style.width = `${originalWidth}vw`;
@@ -154,7 +156,8 @@ function ProjectGrid()
             card.style.flexDirection = "column";
             card.style.alignItems = "center";
             card.style.justifyContent = "flex-start";
-            card.style.padding = "20px 35px";
+            card.style.padding = "130px 30px";
+            card.style.height = `${70}px`;
 
             card.appendChild(title);
             card.appendChild(description);
