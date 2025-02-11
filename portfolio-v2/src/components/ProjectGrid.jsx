@@ -10,21 +10,24 @@ function ProjectGrid()
     let cardCopy = null;
 
     const cards = [
-        {id: 1, title: "Card 1", description: "Description 1", videoRef: "https://www.youtube.com/embed/tgbNymZ7vqY"},
-        {id: 2, title: "Card 2", description: "Description 2", videoRef: ""},
-        {id: 3, title: "Card 3", description: "Description 3", videoRef: ""},
-        {id: 4, title: "Card 4", description: "Description 4", videoRef: ""},
-        {id: 5, title: "Card 5", description: "Description 5", videoRef: ""},
-        {id: 6, title: "Card 6", description: "Description 6", videoRef: ""},
-        {id: 7, title: "Card 7", description: "Description 7", videoRef: ""},
-        {id: 8, title: "Card 8", description: "Description 8", videoRef: ""},
-        {id: 9, title: "Card 9", description: "Description 9", videoRef: ""},
-        {id: 10, title: "Card 10", description: "Description 10", videoRef: ""},
+        {id: 1, title: "Card 1", description: "Description 1", tags: ["C#", "Unity", "Game"], videoRef: "https://www.youtube.com/embed/tgbNymZ7vqY"},
+        {id: 2, title: "Card 2", description: "Description 2", tags: [], videoRef: ""},
+        {id: 3, title: "Card 3", description: "Description 3", tags: [], videoRef: ""},
+        {id: 4, title: "Card 4", description: "Description 4", tags: [], videoRef: ""},
+        {id: 5, title: "Card 5", description: "Description 5", tags: [], videoRef: ""},
+        {id: 6, title: "Card 6", description: "Description 6", tags: [], videoRef: ""},
+        {id: 7, title: "Card 7", description: "Description 7", tags: [], videoRef: ""},
+        {id: 8, title: "Card 8", description: "Description 8", tags: [], videoRef: ""},
+        {id: 9, title: "Card 9", description: "Description 9", tags: [], videoRef: ""},
+        {id: 10, title: "Card 10", description: "Description 10", tags: [], videoRef: ""},
     ];
 
     function handleClickCard(event, id)
     {
         setClickedCardId(id);
+
+        //prevent scrolling
+        document.body.classList.add("stop-scroll");
         
         //grab the card div that they clicked
         const card = event.currentTarget;
@@ -72,6 +75,9 @@ function ProjectGrid()
             
             //fill card
             const title = document.createElement("h1");
+            title.classList.add("flipped-card-title");
+            const projectTags = cardObj.tags;
+
             const video = document.createElement("iframe");
             const desc = document.createElement("div");
             const backButton = document.createElement("button");
@@ -90,15 +96,40 @@ function ProjectGrid()
             video.src = cardObj.videoRef;
             video.style.flexGrow = "2";
 
-            /*title.style.marginBottom = "-25px";
-            title.style.marginTop = "0px";
-            video.style.marginTop = "-20px";
-            desc.style.marginTop = "0px";
-            backButton.marginTop = "0px";*/
+            desc.style.height = "100px";
 
             backButton.addEventListener("click", (event) => placeCardBack(event, id));
 
-            card.appendChild(title);
+            //create header
+            const topSec = document.createElement("div");
+            topSec.style.display = "flex";
+            topSec.style.justifyContent = "center";
+            topSec.style.alignItems = "center";
+            topSec.style.width = "100%";
+
+            const leftTop = document.createElement("div");
+            const rightTop = document.createElement("div");
+
+            rightTop.style.display = "flex";
+
+            leftTop.appendChild(title);
+            topSec.appendChild(rightTop);
+
+            //create project tags
+            for(let i = 0; i < projectTags.length; i++)
+            {
+                //don't have to check for nullity because tags are hardcoded and the loop wouldn't run
+                const tag = document.createElement("div"); 
+
+                tag.classList.add("tag");
+                tag.style.transform = "rotateY(180deg) scaleY(.75) scaleX(.5)";
+
+                tag.textContent = projectTags[i];
+                rightTop.appendChild(tag);
+            }
+            topSec.appendChild(leftTop);
+            card.appendChild(topSec);
+
             card.appendChild(video);
             card.appendChild(desc);
             card.appendChild(backButton);
@@ -176,6 +207,8 @@ function ProjectGrid()
             card.style.position = 'static';
 
             card.classList.remove("card-clicked");
+            //enable scrolling
+            document.body.classList.remove("stop-scroll");
 
         }, 1000);
     }

@@ -33,6 +33,13 @@ body {
   margin: 0;
   
 }
+.stop-scroll
+{
+  height: 100%;
+  overflow: hidden;
+  position: fixed;
+  width: 100%;
+}
 
 h1 {
   font-size: 3.2em;

@@ -43,3 +43,24 @@
 .project-category:hover::after {
     width: 100%;
 }
+.tag
+{
+    font-family:'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
+    color: var(--darker);
+    padding: 8px 15px;
+    margin: 0px -10px;
+    width: 25%;
+    text-align: center;
+}
+.tag::before /* skewing background causes blurry text */
+{
+    content :'';
+    position:absolute;
+    top:0; left:4%;
+    width:100%; height:100%;
+    border: 2px solid var(--darker);
+    background: #ffde84;
+    transform-origin:0 0;
+    transform:skew(-10deg);
+    z-index:-1;
+}
