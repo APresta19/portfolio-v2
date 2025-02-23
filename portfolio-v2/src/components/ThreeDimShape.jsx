@@ -19,6 +19,8 @@ const startPositions = [
     [0, yStart, zStart],
     [1, yStart, zStart]
 ];
+
+//scale shape
 startPositions.forEach(pos => {
     pos.forEach((val, index) => {
         pos[index] = val * shapeScaleFactor; 
@@ -91,6 +93,7 @@ function ThreeDimShape()
     }, [angle]);
     //console.log(positions[4] + positions[5]); //4 - 20, 20, 30   5 - 30, 20, 30
     return(
+        <>
         <div id="shape-container">
             <div id="center-sec" style={handleCenterPosition(positions)}>
                 <div id="shape">Apo</div>
@@ -121,6 +124,7 @@ function ThreeDimShape()
             
             
         </div>
+        </>
     );
 }
 

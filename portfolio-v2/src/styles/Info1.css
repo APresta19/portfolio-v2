@@ -1,0 +1,12 @@
+#info1-container
+{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 200px;
+}
+img
+{
+    border: 2px solid var(--primary);
+    border-radius: 20px;
+}
